@@ -1,3 +1,35 @@
+/* Style de base */
+
+html, body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #FFFDF7;
+}
+
 body {
-    background-color: skyblue;
+    font-family: "Inter", sans-serif;
+}
+
+#website-title {
+    font-family: "Playfair Display", sans-serif;
+    font-weight: 600;
+    font-size: larger;
+    color: #497555;
+}
+
+#website-logo {
+    background: #497555;
+    color: white;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'Playfair Display';
+    margin: 10px;
+    font-size: large;
+}
+
+/* Navigation */
+
+.nav-left {
+    display: flex;
+    align-items: center;
 }
