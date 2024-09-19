@@ -231,6 +231,56 @@ ul li>a {
     transition: 0.5s;
 }
 
+/* =================================================================
+                            Section "Notre convication"
+================================================================= */
+
+.convictions-container {
+    display: flex;
+    height: 100vh; 
+}
+
+.convictions-left {
+    flex: 2; 
+    display: flex;
+    align-items: center; 
+    background-color: var(--background-color-brown);
+    padding: 20px; 
+}
+
+.convictions-content {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    padding-left: 50px;
+}
+
+.convictions-title {
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+}
+
+.convictions-content>p {
+    color: #555;
+}
+
+.convictions-right {
+    flex: 1; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    height: 100%;
+}
+
+.convictions-picture {
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+}
+
 
 /* =================================================================
                             Footer
