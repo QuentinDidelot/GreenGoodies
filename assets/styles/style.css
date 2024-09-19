@@ -160,17 +160,78 @@ ul li>a {
                             Section "Nos Produits"
 ================================================================= */
 
-
-.products-container {
-    display: flex;
-}
-.products-title {
+.product-title {
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 500;
-    padding: 25px;
+    padding: 35px;
     padding-left: 15em;
 }
+
+
+.product-cards-container {
+    display: flex;
+    flex-wrap: wrap;   
+    flex-direction: row;
+    text-align: center;
+}
+
+.product-card { 
+    flex-grow: 1;
+    width: 33%;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+.product-card-picture {
+    width: 100%;
+    height: auto; 
+    max-height: 500px;
+    object-fit: cover;
+}
+
+.product-info {
+    min-height: 200px;
+    box-sizing: border-box;
+}
+
+.product-card-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.product-card-description {
+    font-size: 14px;
+    font-weight: 400;
+    color: #555;
+}
+
+.product-card-price {
+    font-weight: 400;
+    font-size: 14px;
+    margin: 20px 0;
+}
+
+.product-card-button {
+    width: 100%; 
+    background-color: var(--background-color-main);
+    border: none; 
+    padding: 37px; 
+    cursor: pointer; 
+    font-size: 14px; 
+    margin-top: auto; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-card-button:hover {
+    background-color: var(--product-hover-color); 
+    color: var(--background-color-second); 
+    transition: 0.5s;
+}
+
+
 /* =================================================================
                             Footer
 ================================================================= */
@@ -187,4 +248,25 @@ footer {
     display: flex;
     justify-content: flex-end;
     padding-right: 5em;
+}
+
+/* =================================================================
+                            Responsive
+================================================================= */
+
+
+@media (max-width: 1024px) {
+    .product-card {
+        max-width: 50%; /* Deux cartes par ligne pour les écrans moyens */
+    }
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        max-width: 100%; /* Une carte par ligne pour les écrans petits */
+    }
+
+    .product-title {
+        padding-left: 1em; 
+    }
 }
