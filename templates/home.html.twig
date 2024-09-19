@@ -22,61 +22,19 @@
         <h2 class="product-title"> Nos produits </h2>
         <div class="product-container">
             <div class="product-cards-container">
-                <div class="product-card">
-                    <img class="product-card-picture" src="{{asset("../img/products/kit-hygiene.png")}}" alt="">
-                    <div class="product-info">
-                        <h3 class="product-card-title">Titre du produit</h3>
-                        <p class="product-card-description">Description du produit</p>
-                        <p class="product-card-price">Prix du produit</p>
-                        <button class="product-card-button">Voir le produit</button>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img class="product-card-picture" src="{{asset("../img/products/kit-hygiene.png")}}" alt="">
-                    <div class="product-info">
-                        <h3 class="product-card-title">Titre du produit</h3>
-                        <p class="product-card-description">Description du produit</p>
-                        <p class="product-card-price">Prix du produit</p>
-                        <button class="product-card-button">Voir le produit</button>
-                    </div>
-                </div>
-                                <div class="product-card">
-                    <img class="product-card-picture" src="{{asset("../img/products/kit-hygiene.png")}}" alt="">
-                    <div class="product-info">
-                        <h3 class="product-card-title">Titre du produit</h3>
-                        <p class="product-card-description">Description du produit</p>
-                        <p class="product-card-price">Prix du produit</p>
-                        <button class="product-card-button">Voir le produit</button>
-                    </div>
-                </div>
+                {% for product in products %}
                     <div class="product-card">
-                    <img class="product-card-picture" src="{{asset("../img/products/kit-hygiene.png")}}" alt="">
-                    <div class="product-info">
-                        <h3 class="product-card-title">Titre du produit</h3>
-                        <p class="product-card-description">Description du produit</p>
-                        <p class="product-card-price">Prix du produit</p>
-                        <button class="product-card-button">Voir le produit</button>
+                        <img class="product-card-picture" src="{{product.picture }}" alt="{{ product.name }}">
+                        <div class="product-info">
+                            <h3 class="product-card-title">{{ product.name }}</h3>
+                            <p class="product-card-description">{{ product.shortDescription }}</p>
+                            <p class="product-card-price">{{ product.price|number_format(2, '.', ',') }} €</p>
+                            <button class="product-card-button">Voir le produit</button>
+                        </div>
                     </div>
-                </div>
-                                <div class="product-card">
-                    <img class="product-card-picture" src="{{asset("../img/products/kit-hygiene.png")}}" alt="">
-                    <div class="product-info">
-                        <h3 class="product-card-title">Titre du produit</h3>
-                        <p class="product-card-description">Description du produit</p>
-                        <p class="product-card-price">Prix du produit</p>
-                        <button class="product-card-button">Voir le produit</button>
-                    </div>
-                    
-                </div>
-                                <div class="product-card">
-                    <img class="product-card-picture" src="{{asset("../img/products/kit-hygiene.png")}}" alt="">
-                    <div class="product-info">
-                        <h3 class="product-card-title">Titre du produit</h3>
-                        <p class="product-card-description">Description du produit</p>
-                        <p class="product-card-price">Prix du produit</p>
-                        <button class="product-card-button">Voir le produit</button>
-                    </div>
-                </div>
+                {% else %}
+                    <p>Aucun produit disponible.</p>
+                {% endfor %}
             </div>
         </div>
     </div>

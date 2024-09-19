@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
 
                 Grâce à sa formule non irritante et respectueuse de votre peau, Nécessaire offre une alternative saine aux déodorants conventionnels, tout en préservant l'équilibre naturel de votre corps.",
                 'price' => 24.99,
-                'picture' => 'assets/img/products/kit-hygiene.png'
+                'picture' => '/img/products/kit-hygiene.png'
             ],
             [
                 'name' => "Shot tropical",
@@ -41,7 +41,7 @@ class AppFixtures extends Fixture
 
                 Chaque bouteille de 250 ml vous offre une boisson naturelle et revitalisante, sans sucre ajouté ni conservateurs, pour une expérience authentique et pure.",
                 'price' => 4.50,
-                'picture' => 'assets/img/products/shot-tropical.png'
+                'picture' => '/img/products/shot-tropical.png' 
             ],
             [
                 'name' => "Gourde en bois",
@@ -52,7 +52,7 @@ class AppFixtures extends Fixture
 
                 En plus de son design raffiné, cette gourde est une alternative respectueuse de l'environnement aux contenants plastiques traditionnels, vous permettant de réduire votre empreinte écologique avec style.",
                 'price' => 16.90,
-                'picture' => 'assets/img/products/gourde-bois.png'
+                'picture' => '/img/products/gourde-bois.png'
             ],
             [
                 'name' => "Disques Démaquillants x3",
@@ -63,7 +63,7 @@ class AppFixtures extends Fixture
 
                 Chaque pack contient trois disques, idéaux pour un démaquillage quotidien, tout en réduisant votre impact environnemental.",
                 'price' => 19.90,
-                'picture' => 'assets/img/products/disques.png'
+                'picture' => '/img/products/disques.png'
             ],
             [
                 'name' => "Bougie Lavande & Patchouli",
@@ -74,7 +74,7 @@ class AppFixtures extends Fixture
 
                 Parfaite pour créer une ambiance chaleureuse et réconfortante, cette bougie est également un choix éco-responsable pour embellir votre intérieur.",
                 'price' => 32.00,
-                'picture' => 'assets/img/products/bougies.png'
+                'picture' => '/img/products/bougies.png'
             ],
             [
                 'name' => "Brosse à dent",
@@ -85,7 +85,7 @@ class AppFixtures extends Fixture
 
                 Avec son design ergonomique et son engagement en faveur de l'environnement, cette brosse à dents est une alternative sophistiquée aux produits en plastique.",
                 'price' => 5.40,
-                'picture' => 'assets/img/products/brosse-a-dent.png'
+                'picture' => '/img/products/brosse-a-dent.png'
             ],
             [
                 'name' => "Kit couvert en bois",
@@ -96,7 +96,7 @@ class AppFixtures extends Fixture
 
                 Ce kit est idéal pour ceux qui cherchent à réduire leur impact environnemental tout en profitant d'un produit de qualité supérieure.",
                 'price' => 12.30,
-                'picture' => 'assets/img/products/kit-couverts.png'
+                'picture' => '/img/products/kit-couverts.png'
             ],
             [
                 'name' => "Nécessaire, déodorant Bio",
@@ -107,7 +107,7 @@ class AppFixtures extends Fixture
 
                 Idéal pour ceux qui recherchent une alternative saine aux déodorants conventionnels, ce produit offre une sensation de fraîcheur et de confort tout au long de la journée.",
                 'price' => 8.50,
-                'picture' => 'assets/img/products/necessaire-deo.png'
+                'picture' => '/img/products/necessaire-deo.png'
             ],
             [
                 'name' => "Savon Bio",
@@ -118,7 +118,7 @@ class AppFixtures extends Fixture
 
                 Chaque barre de savon est fabriquée à partir d'ingrédients biologiques pour assurer une douceur maximale tout en respectant l'environnement.",
                 'price' => 18.90,
-                'picture' => 'assets/img/products/savon-bio.png'
+                'picture' => '/img/products/savon-bio.png'
             ],
         ];
 
