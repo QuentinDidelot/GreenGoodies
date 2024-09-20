@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\ProductRepository; // Importer le repository
+use App\Repository\ProductRepository; 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -24,9 +24,10 @@ class HomeController extends AbstractController
     {
         // Récupération des produits en base de données
         $products = $this->productRepository->findAll();
-
+    
         return $this->render('home.html.twig', [
             'products' => $products,
         ]);
     }
+    
 }
