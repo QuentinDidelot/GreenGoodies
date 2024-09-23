@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="main-container">
-        <div class="welcome-container">
+        <section class="welcome-container">
             <div class="welcome-left">
                 <div class="welcome-left-content">
                     <h1>Bienvenue</h1>
@@ -17,10 +17,10 @@
             <div class="welcome-right">
                 <img class="welcome-picture" src="{{asset('../img/hero-header-picture.png') }}" alt="Hero Header">
             </div>
-        </div>
+        </section>
         
         <h2 class="product-title"> Nos produits </h2>
-        <div class="product-container">
+        <section class="product-container">
             <div class="product-cards-container">
                 {% for product in products %}
                     <div class="product-card">
@@ -38,9 +38,9 @@
                     <p>Aucun produit disponible.</p>
                 {% endfor %}
             </div>
-        </div>
+        </section>
 
-        <div class="convictions-container">
+        <section class="convictions-container">
             <div class="convictions-left">
                 <div class="convictions-content">
                     <h2 class="convictions-title">Notre conviction</h2>
@@ -51,10 +51,10 @@
             <div class="convictions-right">
                 <img class="convictions-picture" src="{{asset('/img/conviction-picture.png')}}" alt="Notre conviction">
             </div>
-        </div>
+        </section>
 
 
-        <div class="values-container">
+        <section class="values-container">
             <div class="values-left">
                 <img class="values-picture" src="{{asset('/img/values-picture.png')}}" alt="Nos valeurs">
             </div>
@@ -68,7 +68,7 @@
                     Écologie : Nous encourageons des pratiques respectueuses de l'écosystème et privilégions les matériaux écologiques.
                 </p>
             </div>
-        </div>
+        </section>
     </div>
 
 {% endblock %}

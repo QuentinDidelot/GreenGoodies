@@ -1,0 +1,36 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}Green Goodies | Inscription {% endblock %}
+
+{% block body %}
+    <section class="registration-container">
+        <div class="banner-left">
+            <img src="{{ asset('/img/inscription-picture.png') }}" alt="Inscription">
+        </div>
+
+    <div class="form-right">
+        <h2>Inscription</h2>
+        <p class="form-description">Tous les champs sont obligatoires</p>
+        
+        {{ form_start(registrationType, {'attr': {'class': 'registration-form'}}) }}
+            
+            {{ form_row(registrationType.lastName) }}
+            {{ form_row(registrationType.firstName) }}
+            {{ form_row(registrationType.email) }}
+            {{ form_row(registrationType.password) }}
+
+            <div class="cgu-line">
+                {{ form_widget(registrationType.acceptTerms) }}
+                <label for="{{ registrationType.acceptTerms.vars.id }}">J'accepte les CGU de GreenGoodies</label>
+            </div>
+            
+            {{ form_row(registrationType.submit) }}
+            
+        {{ form_end(registrationType) }}
+
+        <p class="login-link"><a href="#">Déjà un compte ? Se connecter</a></p>
+    </div>
+
+
+    </section>
+{% endblock %}

@@ -4,7 +4,7 @@
 
 {% block body %} 
 
-    <div class="product-detail-container">
+    <section class="product-detail-container">
         <div class="product-detail-left">
             <img class="product-detail-picture" src="{{ asset(product.picture) }}" alt="{{ product.name }}">
         </div>
@@ -15,9 +15,9 @@
                 <p class="product-detail-price">{{ product.price | number_format(2, ',', ' ') }} €</p>
                 <p class="product-detail-description-title">Description</p>
                 <p class="product-detail-description">{{ product.fullDescription }}</p>
-                <button class="product-detail-button">Ajouter au panier</button>
+                <button class="button-type-one">Ajouter au panier</button>
             </div>
         </div>
-    </div>
+    </section>
 
 {% endblock %} 
