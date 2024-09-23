@@ -39,6 +39,16 @@ main {
     flex: 1;
 }
 
+
+a {
+    color: #333; 
+    text-decoration: none; 
+} 
+
+a:visited {
+    color: #777;
+}
+
 ul {
     list-style-type: none;
 }
@@ -441,9 +451,14 @@ a {
     display: flex;
     text-align: left;
 }
+
 .form-right {
     padding: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
 .form-description {
     margin-bottom: 2rem;
     color: #777;
@@ -458,7 +473,7 @@ form.registration-form {
     flex-direction: column;
     width: 100%;
     max-width: 400px; 
-    color : #777;
+    color : #555;
 }
 
 input[type="text"],
@@ -495,13 +510,16 @@ input[type="checkbox"] {
 }
 
 .login-link {
+    display: flex;
+    justify-content: center;
     margin-top: 1.5rem;
     font-size: 0.9rem;
     text-align: left;
     width: 100%; 
     max-width: 400px; 
+    color: #777;
+    text-decoration: underline;
 }
-
 
 
 .cgu-line label {
@@ -523,18 +541,24 @@ input[type="checkbox"] {
 .cgu-line label::before {
     content: '';
     display: inline-block;
-    width: 20px; /* Largeur de la case */
-    height: 20px; /* Hauteur de la case */
-    border: 2px solid #ccc; /* Bordure de la case */
-    border-radius: 4px; /* Coins arrondis */
-    margin-right: 10px; /* Espace entre la case et le texte */
-    transition: background-color 0.2s, border-color 0.2s; /* Transition pour l'animation */
+    width: 20px; 
+    height: 20px; 
+    border: 2px solid #ccc; 
+    border-radius: 4px; 
+    margin-right: 10px; 
+    transition: background-color 0.2s, border-color 0.2s; 
 }
 
 /* =================================================================
                             Section "Connexion"
 ================================================================= */
 
+.form-login {
+    display: flex;
+    justify-content: flex-start;
+    color: #555;
+    width: 34%;
+}
 
 /* =================================================================
                             Footer

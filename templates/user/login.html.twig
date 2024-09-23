@@ -1,0 +1,27 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}Green Goodies | Connexion {% endblock %}
+
+{% block body %}
+    <section class="registration-container">
+        <div class="banner-left">
+            <img src="{{ asset('/img/conviction-picture.png') }}" alt="Inscription">
+        </div>
+
+        <div class="form-right form-login">
+            <h2>Connexion</h2>
+            {{ form_start(loginForm, {'attr': {'class': 'login-form'}}) }}
+                
+                {{ form_row(loginForm.email) }}
+
+                {{ form_row(loginForm.password) }}
+
+                {{ form_row(loginForm.submit) }}
+                
+            {{ form_end(loginForm) }}
+
+            <p class="login-link"><a href="{{ path('app_register') }}">Pas encore de compte ? S'inscrire</a></p>
+        </div>
+
+    </section>
+{% endblock %}
