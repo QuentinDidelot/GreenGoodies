@@ -46,7 +46,7 @@ a {
 } 
 
 a:visited {
-    color: #777;
+    color: none;
 }
 
 ul {
@@ -60,6 +60,10 @@ ul li>a {
 
 a {
     text-decoration: none;
+}
+
+h1 {
+    font-weight: 500;
 }
 .main-container {
     flex: 1;
@@ -80,6 +84,23 @@ a {
 
 .button-type-one:hover {
     background-color: var(--button-hover-color-two);
+}
+
+
+.button-type-two {
+    background-color: var(--background-color-main);
+    color: #333;
+    width: 100%;
+    padding: 37px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: 0.5s;
+}
+
+.button-type-two:hover {
+    color: white;
+    background-color: var(--button-hover-color-one);
 }
 
 /* =================================================================
@@ -394,8 +415,8 @@ a {
 }
 
 .product-detail-title {
-    font-size: 2em;
-    font-weight: bold;
+    font-size: 24px;
+    font-weight: 500;
     margin-bottom: 10px;
     margin-top: 60px;
 }
@@ -407,8 +428,8 @@ a {
 }
 
 .product-detail-description-title {
-    font-size: 1.2em;
-    font-weight: bold;
+    font-size: 0.8em;
+    font-weight: 300;
     margin-bottom: 10px;
 }
 

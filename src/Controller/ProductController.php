@@ -16,9 +16,22 @@ class ProductController extends AbstractController
     }
 
     /**
+    * Affiche la page des produits
+    */
+    #[Route('/products', name: 'app_product_list')]
+    public function showAllProducts(): Response {
+        // Récupération des produits en base de données
+        $products = $this->productRepository->findAll();
+    
+        return $this->render('\products\products.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
+    /**
      * Affiche la page de détails des produits en fonction de leur ID
      */
-    #[Route('/products/{id}', name: 'product_details')]
+    #[Route('/products/{id}', name: 'app_product_details')]
     public function showProductDetails(int $id): Response {
         // Récupération des données du produit en base de données via l'ID
         $product = $this->productRepository->find($id);

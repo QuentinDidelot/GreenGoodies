@@ -1,0 +1,27 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}Green Goodies | Nos produits{% endblock %}
+
+{% block body %}
+
+
+<section class="product-container">
+    <h1>Nos produits</h1>
+    <div class="product-cards-container">
+        {% for product in products %}
+            <div class="product-card">
+                <img class="product-card-picture" src="{{product.picture }}" alt="{{ product.name }}">
+                <div class="product-info">
+                    <h3 class="product-card-title">{{ product.name }}</h3>
+                    <p class="product-card-description">{{ product.shortDescription }}</p>
+                    <p class="product-card-price">{{ product.price|number_format(2, '.', ',') }} €</p>
+                    <button class="button-type-two" onclick="window.location.href='{{ path('app_product_details', { id: product.id }) }}'">Voir le produit</button>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucun produit disponible.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

@@ -34,6 +34,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isApiAccessEnabled = null;
 
+    // Constructor to set default values
+    public function __construct()
+    {
+        $this->isApiAccessEnabled = false;
+        $this->roles = ['ROLE_USER'];  // Set default role
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -94,6 +101,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): static
     {
+        if (!in_array('ROLE_USER', $roles, true)) {
+            $roles[] = 'ROLE_USER';
+        }
+
         $this->roles = $roles;
 
         return $this;

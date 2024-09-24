@@ -22,13 +22,10 @@ class UserController extends AbstractController
     #[Route('/registration', name: 'app_register')]
     public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
-        // Créer un nouvel utilisateur
         $user = new User();
 
-        // Créer le formulaire d'inscription
         $form = $this->createForm(RegistrationType::class, $user);
 
-        // Gérer la soumission du formulaire
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -50,22 +47,28 @@ class UserController extends AbstractController
     /**
      * Affiche la page de connexion pour que l'utilisateur puisse se connecter
      */
-    #[Route('/login', name: 'app_login')]
+    #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // Récupérer les erreurs de connexion
         $error = $authenticationUtils->getLastAuthenticationError();
-    
-        // Dernier email saisi
-        $lastUsername = $authenticationUtils->getLastUsername();
-    
-        // Créer le formulaire de connexion
-        $form = $this->createForm(LoginType::class);
-    
+        $email = $authenticationUtils->getLastUsername();
+
         return $this->render('user/login.html.twig', [
-            'loginForm' => $form->createView(),
-            'last_username' => $lastUsername,
+            'email' => $email,
             'error' => $error,
         ]);
     }
+    
+
+    /**
+     * Déconnecte l'utilisateur de l'application
+     */
+    #[Route('/logout', name: 'app_logout')]
+    public function logout(): void
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        
+    }
+    
 }
+
