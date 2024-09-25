@@ -44,14 +44,15 @@ public function showProductDetails(int $id, SessionInterface $session): Response
         throw $this->createNotFoundException('Le produit n\'existe pas.');
     }
 
-    // Récupérez le panier de l'utilisateur
+    // Pour récupérer le panier de l'utilisateur
     $cart = $session->get('cart', []);
-    // Obtenez la quantité actuelle du produit dans le panier
-    $currentQuantity = $cart[$product->getId()] ?? 0; // Défaut à 0 si le produit n'est pas dans le panier
+
+    // Pour récupérer la quantité actuelle dans le panier
+    $currentQuantity = $cart[$product->getId()] ?? 0; 
 
     return $this->render('\products\product-details.html.twig', [
         'product' => $product,
-        'currentQuantity' => $currentQuantity, // Passez la quantité actuelle au template
+        'currentQuantity' => $currentQuantity, 
     ]);
 }
 
@@ -63,15 +64,15 @@ public function showProductDetails(int $id, SessionInterface $session): Response
     #[IsGranted('ROLE_USER')]
     #[Route('/cart', name: 'app_cart')]
     public function showCart(SessionInterface $session): Response {
-        // Récupérez le panier de l'utilisateur
+        // Pour récupérer le panier de l'utilisateur
         $cart = $session->get('cart', []);
         
-        // Récupérez les produits correspondants
+        // Pour récupérer les produits correspondants
         $products = $this->productRepository->findBy(['id' => array_keys($cart)]);
         
         $total = 0;
         foreach ($products as $product) {
-            $total += $product->getPrice() * $cart[$product->getId()]; // Multipliez le prix par la quantité
+            $total += $product->getPrice() * $cart[$product->getId()];
         }
     
         return $this->render('\products\order-cart.html.twig', [
@@ -90,25 +91,27 @@ public function showProductDetails(int $id, SessionInterface $session): Response
     #[Route('/cart/add/{id}', name: 'app_cart_add')]
     public function addToCart(Product $product, SessionInterface $session, Request $request): Response
     {
-        // Récupérez le panier de l'utilisateur
+         // Pour récupérer le panier de l'utilisateur
         $cart = $session->get('cart', []);
     
-        // Récupérez la quantité depuis la requête
+        // Pour récupérer la quantité depuis la requête
         $quantity = $request->request->get('quantity', 1);
         
-        // Vérifiez si la quantité est supérieure à 0
+        // If pour vérifier la quantité du produit
         if ($quantity > 0) {
-            // Si le produit est déjà dans le panier, mettez à jour la quantité
+            // Si le produit est déjà dans le panier, mettre à jour la quantité
             $cart[$product->getId()] = $quantity;
         } else {
-            // Sinon, retirez le produit du panier
+            // Sinon, on retire le produit du panier
             unset($cart[$product->getId()]);
         }
     
-        // Enregistrez le panier mis à jour
+        // MàJ du panier
         $session->set('cart', $cart);
     
-        // Rediriger vers la page de détails du produit
+
+        $this->addFlash('success', sprintf('L\'article "%s" a bien été ajouté au panier.', $product->getName()));
+
         return $this->redirectToRoute('app_product_details', ['id' => $product->getId()]);
     }
     
@@ -121,7 +124,7 @@ public function showProductDetails(int $id, SessionInterface $session): Response
     #[Route('/cart/clear', name: 'app_cart_clear')]
     public function clearCart(SessionInterface $session): Response {
 
-        // Videz le panier de l'utilisateur
+        // Vider le panier de l'utilisateur
         $session->remove('cart');
 
         return $this->redirectToRoute('app_home');

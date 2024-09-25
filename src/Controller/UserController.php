@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
@@ -70,5 +71,55 @@ class UserController extends AbstractController
         
     }
     
+
+    /**
+     * Affiche la page "Mon compte" de l'utilisateur enregistré
+     */
+    #[IsGranted('ROLE_USER')]
+    #[Route('/account', name: 'app_account')]
+    public function account(): Response
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw new \Exception('User not found');
+        }
+        
+        $orders = $user->getOrders(); 
+
+        return $this->render('user/account.html.twig', [
+            'user' => $user,
+            'orders' => $orders, 
+        ]);
+    }
+
+    /**
+     * Supprime le compte utilisateur
+     */
+    #[IsGranted('ROLE_USER')]
+    #[Route('/account/delete', name: 'app_account_delete')]
+    public function deleteAccount(EntityManagerInterface $entityManager): Response {
+        $user = $this->getUser();
+    
+        if (!$user instanceof User) {
+            throw new \Exception('User not found');
+        }
+    
+        // Supprime le compte utilisateur et les données associées
+        try {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            return $this->redirectToRoute('app_account', [
+                'error' => 'Une erreur est survenue lors de la suppression de votre compte. Réessayez ultérieurement.'
+            ]);
+        }
+    
+        $this->addFlash('success', 'Votre compte a bien été supprimé');
+    
+        return $this->redirectToRoute('app_home');
+    }
+
+
 }
 

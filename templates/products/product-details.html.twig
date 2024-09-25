@@ -4,7 +4,17 @@
 
 {% block body %} 
 
+
 <section class="product-detail-container">
+
+    {% if app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {% for message in app.flashes('success') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div class="product-detail-left">
         <img class="product-detail-picture" src="{{ asset(product.picture) }}" alt="{{ product.name }}">
     </div>
@@ -20,15 +30,17 @@
                 <form action="{{ path('app_cart_add', { 'id': product.id }) }}" method="post" class="add-to-cart-form">
                     <div class="quantity-container">
                         <label for="quantity" class="quantity-label">Quantité :</label>
-                        <input type="number" id="quantity" name="quantity" value="{{ currentQuantity }}" min="0" class="quantity-input"> <!-- Utilisez currentQuantity -->
+                        <input type="number" id="quantity" name="quantity" value="{{ currentQuantity }}" min="0" class="quantity-input"> 
                     </div>
-                    <button type="submit" class="button-type-one">
-                        {% if currentQuantity > 0 %} <!-- Vérifiez si la quantité est supérieure à 0 -->
-                            Mettre à jour
-                        {% else %}
-                            Ajouter au panier
-                        {% endif %}
-                    </button>
+                    <div class="product-detail-button-container">
+                        <button type="submit" class="button-type-one">
+                            {% if currentQuantity > 0 %} 
+                                Mettre à jour
+                            {% else %}
+                                Ajouter au panier
+                            {% endif %}
+                        </button>
+                    </div>
                 </form>
             {% else %}
                 <a href="{{ path('app_login') }}" class="button-type-one">Veuillez vous connecter pour ajouter au panier</a>

@@ -31,7 +31,8 @@ html {
 
 body {
     font-family: "Inter", sans-serif;
-    max-width: 1280px;
+    /* max-width: 1280px; */
+    max-width: 1440px;
     margin: auto;
     background-color: var(--background-color-main);
 }
@@ -79,7 +80,7 @@ h1 {
 .button-type-one {
     background-color: var(--button-color);
     color: white;
-    width: 102%;
+    width: auto;
     padding: 30px;
     border: none;
     cursor: pointer;
@@ -290,6 +291,8 @@ h1 {
 
 .quantity-container {
     margin: 15px 0;
+    display: flex;
+    align-items: center;
 }
 
 .quantity-label {
@@ -298,8 +301,9 @@ h1 {
 }
 
 .quantity-input {
-    width: 60px;
+    width: 40px;
     padding: 5px;
+    margin-left: 15px;
 }
 
 /* =================================================================
@@ -460,6 +464,11 @@ h1 {
     margin-bottom: 35%;
 }
 
+.product-detail-button-container {
+    display: flex;
+    flex-direction: column;
+}
+
 /* =================================================================
                             Section "Inscription"
 ================================================================= */
@@ -606,25 +615,30 @@ input[type="checkbox"] {
                             Section "Panier"
 ================================================================= */
 
-.cart-container {
+.cart-container, 
+.account-container {
     background-color: var(--background-color-second);
     padding: 30px 0px 50px 0px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; 
+    justify-content: flex-start; 
     min-height: 80vh; 
 }
 
-.cart-title {
+.cart-title, .account-title {
     text-align: center;
 }
 
 .cart-empty-container {
     margin: 20px auto 10px;
+    width: 50%;
 }
 
 .article-container,
-.total-container{
+.total-container,
+.account-order,
+.account-api-access,
+.delete-account{
     background-color: var(--background-color-main);
     margin: 20px auto 10px;
     width: 50%;
@@ -673,6 +687,7 @@ input[type="checkbox"] {
 .confirm-order-container {
     display: flex;
     text-align: center;
+    flex-direction: column;
     flex-shrink: 0;
     margin: 20px auto 10px;
     width: 50%;
@@ -684,6 +699,48 @@ input[type="checkbox"] {
                             Section "Mon Compte"
 ================================================================= */
 
+.account-api-access,
+.delete-account,
+.connexion-button {
+    display: flex;
+    flex-direction: column;
+    padding: 60px 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 20px;
+}
+
+th {
+    color: #555;
+}
+tr:not(:first-child) {
+    border-top: 1px solid #333;
+}
+
+
+th:nth-child(1), td:nth-child(1) {
+    width: 33%; 
+}
+
+th:nth-child(2), td:nth-child(2) {
+    width: 33%; 
+}
+
+th:nth-child(3), td:nth-child(3) {
+    width: 33%; 
+}
+
+/* Pas de lignes verticales */
+td, th {
+    border: none;
+}
 
 /* =================================================================
                             Footer
