@@ -6,6 +6,8 @@ use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 class ProductController extends AbstractController
 {
 
@@ -43,5 +45,14 @@ class ProductController extends AbstractController
         return $this->render('\products\product-details.html.twig', [
             'product' => $product,
         ]);
+    }
+
+    /**
+     * Affiche la page du panier 
+     */
+    #[IsGranted('ROLE_USER')]
+    #[Route('/cart', name: 'app_cart')]
+    public function showCart(): Response {
+        return $this->render('\products\order-cart.html.twig');
     }
 }

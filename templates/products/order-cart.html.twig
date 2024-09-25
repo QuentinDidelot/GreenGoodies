@@ -1,0 +1,60 @@
+{% extends "base/base.html.twig" %}
+
+{% block title %}Green Goodies | Mon Panier {% endblock %}
+
+{% block body %}
+
+<section class="cart-container">
+    <h2 class="cart-title">Mon panier</h2>
+    <div class="cart-empty-container">
+        <a class="cart-empty" href="" onclick="return confirm('Êtes-vous sûr de vouloir vider votre panier ? Tous les articles seront supprimés !')">X Vider le panier</a>
+    </div>
+
+    <div class="article-container">
+        <div class="card-article-cart">
+            <img src="\img\products\savon-bio.png" alt="Nom de l'article">
+            <div class="info-article-cart">
+                <p class="title-article-cart">Titre : </p>
+                <p class="quantity-article-cart">Quantité : </p>
+                <p class="price-article-cart"> Prix en €</p>
+            </div>
+        </div>
+                <div class="card-article-cart">
+            <img src="\img\products\savon-bio.png" alt="Nom de l'article">
+            <div class="info-article-cart">
+                <p class="title-article-cart">Titre : </p>
+                <p class="quantity-article-cart">Quantité : </p>
+                <p class="price-article-cart"> Prix en €</p>
+            </div>
+        </div>
+                <div class="card-article-cart">
+            <img src="\img\products\savon-bio.png" alt="Nom de l'article">
+            <div class="info-article-cart">
+                <p class="title-article-cart">Titre : </p>
+                <p class="quantity-article-cart">Quantité : </p>
+                <p class="price-article-cart"> Prix en €</p>
+            </div>
+        </div>
+                        <div class="card-article-cart">
+            <img src="\img\products\savon-bio.png" alt="Nom de l'article">
+            <div class="info-article-cart">
+                <p class="title-article-cart">Titre : </p>
+                <p class="quantity-article-cart">Quantité : </p>
+                <p class="price-article-cart"> Prix en €</p>
+            </div>
+        </div>
+        
+        <p class="cart-empty-message">Votre panier est vide.</p>
+    </div>
+    <div class="total-container">
+        <p class="total-order">Total panier :  €</p>
+        <p class="shipping-cost">Frais de livraison : Offert</p>
+    </div>
+
+    <div class="confirm-order-container">   
+        <a href="" class="button-type-one">Valider la commande</a>
+    </div>
+</section>
+
+
+{% endblock %}

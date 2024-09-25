@@ -8,8 +8,8 @@
     <div class="nav-right">        
         <ul>
             <li><a href="{{ path('app_product_list') }}">Nos produits</a></li>
-            {% if is_granted('ROLE_USER') %}
-                <li><a href="#">Mon panier</a></li>
+            {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('app_cart') }}">Mon panier</a></li>
                 <li><a href="#">Mon compte</a></li>
                 <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
             {% else %}
