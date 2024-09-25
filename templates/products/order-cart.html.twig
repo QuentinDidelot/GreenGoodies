@@ -6,48 +6,35 @@
 
 <section class="cart-container">
     <h2 class="cart-title">Mon panier</h2>
-    <div class="cart-empty-container">
-        <a class="cart-empty" href="" onclick="return confirm('Êtes-vous sûr de vouloir vider votre panier ? Tous les articles seront supprimés !')">X Vider le panier</a>
-    </div>
+
+    {% if cart is not empty %}
+        <div class="cart-empty-container">
+            <a class="cart-empty" href="{{ path('app_cart_clear') }}" onclick="return confirm('Êtes-vous sûr de vouloir vider votre panier ? Tous les articles seront supprimés !')">X Vider le panier</a>
+        </div>
+    {% endif %}
 
     <div class="article-container">
-        <div class="card-article-cart">
-            <img src="\img\products\savon-bio.png" alt="Nom de l'article">
-            <div class="info-article-cart">
-                <p class="title-article-cart">Titre : </p>
-                <p class="quantity-article-cart">Quantité : </p>
-                <p class="price-article-cart"> Prix en €</p>
-            </div>
-        </div>
+        {% if cart is empty %}
+            <p class="cart-empty-message">Votre panier est vide.</p>
+        {% else %}
+            {% for product in products %}
+                {% set quantity = cart[product.id] %}
                 <div class="card-article-cart">
-            <img src="\img\products\savon-bio.png" alt="Nom de l'article">
-            <div class="info-article-cart">
-                <p class="title-article-cart">Titre : </p>
-                <p class="quantity-article-cart">Quantité : </p>
-                <p class="price-article-cart"> Prix en €</p>
-            </div>
-        </div>
-                <div class="card-article-cart">
-            <img src="\img\products\savon-bio.png" alt="Nom de l'article">
-            <div class="info-article-cart">
-                <p class="title-article-cart">Titre : </p>
-                <p class="quantity-article-cart">Quantité : </p>
-                <p class="price-article-cart"> Prix en €</p>
-            </div>
-        </div>
-                        <div class="card-article-cart">
-            <img src="\img\products\savon-bio.png" alt="Nom de l'article">
-            <div class="info-article-cart">
-                <p class="title-article-cart">Titre : </p>
-                <p class="quantity-article-cart">Quantité : </p>
-                <p class="price-article-cart"> Prix en €</p>
-            </div>
-        </div>
-        
-        <p class="cart-empty-message">Votre panier est vide.</p>
+                    <img src="{{ asset(product.picture) }}" alt="{{ product.name }}">
+                    <div class="info-article-cart">
+                        <p class="title-article-cart">Titre : {{ product.name }}</p>
+                        <p class="quantity-article-cart">Quantité : {{ quantity }}</p>
+                        <p class="price-article-cart">Prix : {{ product.price | number_format(2, ',', ' ') }} €</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
+
+
+    
     <div class="total-container">
-        <p class="total-order">Total panier :  €</p>
+        <p class="total-order">Total panier : {{ total | number_format(2, ',', ' ') }} €</p>
         <p class="shipping-cost">Frais de livraison : Offert</p>
     </div>
 
@@ -55,6 +42,5 @@
         <a href="" class="button-type-one">Valider la commande</a>
     </div>
 </section>
-
 
 {% endblock %}

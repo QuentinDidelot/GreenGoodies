@@ -4,20 +4,37 @@
 
 {% block body %} 
 
-    <section class="product-detail-container">
-        <div class="product-detail-left">
-            <img class="product-detail-picture" src="{{ asset(product.picture) }}" alt="{{ product.name }}">
-        </div>
+<section class="product-detail-container">
+    <div class="product-detail-left">
+        <img class="product-detail-picture" src="{{ asset(product.picture) }}" alt="{{ product.name }}">
+    </div>
 
-        <div class="product-detail-right">
-            <div class="product-detail-content">
-                <h1 class="product-detail-title">{{ product.name }}</h1>
-                <p class="product-detail-price">{{ product.price | number_format(2, ',', ' ') }} €</p>
-                <p class="product-detail-description-title">Description</p>
-                <p class="product-detail-description">{{ product.fullDescription }}</p>
-                <button class="button-type-one">Ajouter au panier</button>
-            </div>
-        </div>
-    </section>
+    <div class="product-detail-right">
+        <div class="product-detail-content">
+            <h1 class="product-detail-title">{{ product.name }}</h1>
+            <p class="product-detail-price">{{ product.price | number_format(2, ',', ' ') }} €</p>
+            <p class="product-detail-description-title">Description</p>
+            <p class="product-detail-description">{{ product.fullDescription }}</p>
 
-{% endblock %} 
+            {% if is_granted('ROLE_USER') %}
+                <form action="{{ path('app_cart_add', { 'id': product.id }) }}" method="post" class="add-to-cart-form">
+                    <div class="quantity-container">
+                        <label for="quantity" class="quantity-label">Quantité :</label>
+                        <input type="number" id="quantity" name="quantity" value="{{ currentQuantity }}" min="0" class="quantity-input"> <!-- Utilisez currentQuantity -->
+                    </div>
+                    <button type="submit" class="button-type-one">
+                        {% if currentQuantity > 0 %} <!-- Vérifiez si la quantité est supérieure à 0 -->
+                            Mettre à jour
+                        {% else %}
+                            Ajouter au panier
+                        {% endif %}
+                    </button>
+                </form>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="button-type-one">Veuillez vous connecter pour ajouter au panier</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
