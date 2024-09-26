@@ -24,8 +24,11 @@
                 <label for="{{ registrationType.acceptTerms.vars.id }}">J'accepte les CGU de GreenGoodies</label>
             </div>
             
-            {{ form_row(registrationType.submit) }}
-            
+            <div class="registration-button-container">
+                {{ form_widget(registrationType.submit, { 'attr': { 'class': 'button-type-one' } }) }}
+            </div>
+
+
         {{ form_end(registrationType) }}
 
         <p class="login-link"><a href="{{path("app_login")}}">Déjà un compte ? Se connecter</a></p>
