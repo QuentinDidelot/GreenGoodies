@@ -36,23 +36,30 @@ class ProductController extends AbstractController
 /**
  * Affiche la page de détails des produits en fonction de leur ID
  */
-#[Route('/products/{id}', name: 'app_product_details')]
-public function showProductDetails(int $id, SessionInterface $session): Response {
+#[Route('/products/{id}-{slug}', name: 'app_product_details', requirements: ['id' => '\d+'])]
+public function showProductDetails(int $id, string $slug, SessionInterface $session): Response
+{
     $product = $this->productRepository->find($id);
 
     if (!$product) {
         throw $this->createNotFoundException('Le produit n\'existe pas.');
     }
 
-    // Pour récupérer le panier de l'utilisateur
+    // Si le slug de l'URL ne correspond pas au slug du produit, rediriger vers l'URL correcte
+    if ($product->getSlug() !== $slug) {
+        return $this->redirectToRoute('app_product_details', [
+            'id' => $product->getId(),
+            'slug' => $product->getSlug(),
+        ], 301);
+    }
+
     $cart = $session->get('cart', []);
 
-    // Pour récupérer la quantité actuelle dans le panier
-    $currentQuantity = $cart[$product->getId()] ?? 0; 
+    $currentQuantity = $cart[$product->getId()] ?? 0;
 
     return $this->render('\products\product-details.html.twig', [
         'product' => $product,
-        'currentQuantity' => $currentQuantity, 
+        'currentQuantity' => $currentQuantity,
     ]);
 }
 
