@@ -98,13 +98,13 @@ public function showProductDetails(int $id, string $slug, SessionInterface $sess
     #[Route('/cart/add/{id}', name: 'app_cart_add')]
     public function addToCart(Product $product, SessionInterface $session, Request $request): Response
     {
-         // Pour récupérer le panier de l'utilisateur
+        // Pour récupérer le panier de l'utilisateur
         $cart = $session->get('cart', []);
-    
+
         // Pour récupérer la quantité depuis la requête
         $quantity = $request->request->get('quantity', 1);
-        
-        // If pour vérifier la quantité du produit
+
+        // Vérifier la quantité du produit
         if ($quantity > 0) {
             // Si le produit est déjà dans le panier, mettre à jour la quantité
             $cart[$product->getId()] = $quantity;
@@ -112,15 +112,19 @@ public function showProductDetails(int $id, string $slug, SessionInterface $sess
             // Sinon, on retire le produit du panier
             unset($cart[$product->getId()]);
         }
-    
+
         // MàJ du panier
         $session->set('cart', $cart);
-    
 
         $this->addFlash('success', sprintf('L\'article "%s" a bien été ajouté au panier.', $product->getName()));
 
-        return $this->redirectToRoute('app_product_details', ['id' => $product->getId()]);
+        // Redirection avec l'ID et le slug
+        return $this->redirectToRoute('app_product_details', [
+            'id' => $product->getId(),
+            'slug' => $product->getSlug(),
+        ]);
     }
+
     
     
 

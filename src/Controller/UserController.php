@@ -12,8 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
 
 class UserController extends AbstractController
 {
@@ -93,32 +95,50 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * Supprime le compte utilisateur
-     */
-    #[IsGranted('ROLE_USER')]
-    #[Route('/account/delete', name: 'app_account_delete')]
-    public function deleteAccount(EntityManagerInterface $entityManager): Response {
-        $user = $this->getUser();
-    
-        if (!$user instanceof User) {
-            throw new \Exception('User not found');
-        }
-    
-        // Supprime le compte utilisateur et les données associées
-        try {
-            $entityManager->remove($user);
-            $entityManager->flush();
-        } catch (\Exception $e) {
-            return $this->redirectToRoute('app_account', [
-                'error' => 'Une erreur est survenue lors de la suppression de votre compte. Réessayez ultérieurement.'
-            ]);
-        }
-    
-        $this->addFlash('success', 'Votre compte a bien été supprimé');
-    
+/**
+ * Supprime le compte utilisateur
+ */
+#[IsGranted('ROLE_USER')]
+#[Route('/account/delete', name: 'app_account_delete')]
+public function deleteAccount(EntityManagerInterface $entityManager, Request $request): Response
+{
+    $user = $this->getUser();
+
+    // Vérifie si l'utilisateur existe
+    if (!$user instanceof User) {
+        $this->addFlash('error', 'Utilisateur non trouvé.');
         return $this->redirectToRoute('app_home');
     }
+
+    // Invalide la session pour déconnecter l'utilisateur
+    $request->getSession()->invalidate();
+
+    // Supprime le token de sécurité pour assurer la déconnexion
+    $this->container->get('security.token_storage')->setToken(null);
+
+    // Supprime le compte utilisateur
+    try {
+        $entityManager->remove($user);
+        $entityManager->flush();
+    } catch (\Exception $e) {
+        // Ajoute un message d'erreur détaillé
+        $this->addFlash('error', 'Une erreur est survenue : ' . $e->getMessage());
+        return $this->redirectToRoute('app_account', [
+            'error' => 'Une erreur est survenue lors de la suppression de votre compte. Réessayez ultérieurement.'
+        ]);
+    }
+
+    // Ajoute un message flash de succès
+    $this->addFlash('success', 'Votre compte a bien été supprimé');
+
+    // Redirige vers la page d'accueil
+    return $this->redirectToRoute('app_home');
+}
+
+
+    
+    
+    
 
 
 }

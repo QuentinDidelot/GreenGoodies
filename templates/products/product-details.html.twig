@@ -27,10 +27,10 @@
             <p class="product-detail-description">{{ product.fullDescription }}</p>
 
             {% if is_granted('ROLE_USER') %}
-                <form action="{{ path('app_cart_add', { 'id': product.id }) }}" method="post" class="add-to-cart-form">
+                <form action="{{ path('app_cart_add', { 'id': product.id, 'slug': product.slug }) }}" method="post" class="add-to-cart-form">
                     <div class="quantity-container">
                         <label for="quantity" class="quantity-label">Quantité :</label>
-                        <input type="number" id="quantity" name="quantity" value="{{ currentQuantity }}" min="0" class="quantity-input"> 
+                        <input type="number" id="quantity" name="quantity" value="{{ currentQuantity > 0 ? currentQuantity : 1 }}" min="0" class="quantity-input"> 
                     </div>
                     <div class="product-detail-button-container">
                         <button type="submit" class="button-type-one">
