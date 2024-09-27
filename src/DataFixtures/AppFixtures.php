@@ -141,7 +141,7 @@ class AppFixtures extends Fixture
                 'last_name' => 'Sheppard',
                 'email' => 'john@me.com',
                 'password' => 'john',
-                'roles' => ['ROLE_ADMIN'],
+                'roles' => ['ROLE_USER'],
                 'isApiAccessEnabled' => false
             ],
         ];

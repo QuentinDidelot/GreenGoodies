@@ -68,28 +68,22 @@ class PaymentController extends AbstractController
     #[Route('/order/success', name: 'app_order_success')]
     public function success(SessionInterface $session, EntityManagerInterface $entityManager, OrderRepository $orderRepository): Response
     {
-        // Récupérer l'ID de la commande en session
         $orderId = $session->get('orderId');
         if (!$orderId) {
             return $this->redirectToRoute('app_cart');
         }
-
-        // Récupérer la commande
+    
         $order = $orderRepository->find($orderId);
         if (!$order) {
             throw $this->createNotFoundException('Commande non trouvée.');
         }
 
-        // Mise à jour du statut de la commande (par exemple "payée")
-        $order->setStatus('paid');
-        $entityManager->flush();
-
-        // Suppression de l'ID de commande en session
+        $session->remove('cart');
         $session->remove('orderId');
-
-        // Affiche une page de succès après le paiement
-        return $this->render('order/success.html.twig', [
+    
+        return $this->render('payment/success.html.twig', [
             'message' => 'Votre paiement a été effectué avec succès !',
         ]);
     }
+    
 }
