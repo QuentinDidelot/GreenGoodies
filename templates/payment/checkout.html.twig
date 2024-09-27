@@ -1,0 +1,20 @@
+{# templates/checkout/checkout.html.twig #}
+
+{% extends "base/base.html.twig" %}
+
+{% block title %}Green Goodies | Paiement {% endblock %}
+
+
+{% block body %}
+
+    <h2>Récapitulatif de votre commande</h2>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }} - {{ cart[product.id] }} x {{ product.price / 100 }} €</li>
+        {% endfor %}
+    </ul>
+    <p>Total : {{ total / 100 }} €</p>
+
+    <a href="{{ path('app_order_payment') }}" class="button-type-one" data-turbo="false" >Procéder au paiement</a>
+
+{% endblock %}
