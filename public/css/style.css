@@ -699,6 +699,12 @@ input[type="checkbox"] {
     padding: 30px;
 }
 
+.recap-container {
+    height: 55vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
 
 
 /* =================================================================
@@ -730,6 +736,7 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     padding: 60px 30px;
+    gap: 30px;
 }
 
 table {
