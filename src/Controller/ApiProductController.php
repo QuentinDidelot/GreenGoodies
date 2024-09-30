@@ -20,7 +20,8 @@ class ApiProductController extends AbstractController
     public function __construct(
         private ProductRepository $productRepository,
         private EntityManagerInterface $entityManager,
-        private SerializerInterface $serializer)
+        private SerializerInterface $serializer,
+        private Security $security)
     {
     }
 
@@ -44,19 +45,22 @@ class ApiProductController extends AbstractController
     #[Route('/api/products', name: 'app_api_product', methods: ['GET'])]
     public function getProductList(): JsonResponse
     {
+        $user = $this->security->getUser();
 
-        if (!$this->isGranted('ROLE_USER')) {
+        // Vérifier si l'utilisateur est authentifié et si l'accès API est activé
+        if (!$user instanceof User || !$user->isApiAccessEnabled()) {
             return new JsonResponse(['message' => 'Accès API non activé'], Response::HTTP_FORBIDDEN);
         }
-    
+
         $productList = $this->productRepository->findAll();
         if (empty($productList)) {
             return new JsonResponse([], Response::HTTP_OK); // Aucun produit à retourner
         }
-    
+
         $jsonProductList = $this->serializer->serialize($productList, 'json', ['groups' => 'getProducts']);
-    
+
         return new JsonResponse($jsonProductList, Response::HTTP_OK, [], true);
     }
+
     
 }
