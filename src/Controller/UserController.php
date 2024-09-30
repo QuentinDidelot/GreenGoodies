@@ -13,12 +13,23 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
 
 class UserController extends AbstractController
 {
+
+    private $entityManager;
+    private $security;
+
+    public function __construct(EntityManagerInterface $entityManager, Security $security)
+    {
+        $this->entityManager = $entityManager;
+        $this->security = $security;
+    }
+    
     /**
      * Affiche la page d'inscription 
      */
@@ -95,49 +106,60 @@ class UserController extends AbstractController
         ]);
     }
 
-/**
- * Supprime le compte utilisateur
- */
-#[IsGranted('ROLE_USER')]
-#[Route('/account/delete', name: 'app_account_delete')]
-public function deleteAccount(EntityManagerInterface $entityManager, Request $request): Response
-{
-    $user = $this->getUser();
+    /**
+     * Supprime le compte utilisateur
+     */
+    #[IsGranted('ROLE_USER')]
+    #[Route('/account/delete', name: 'app_account_delete')]
+    public function deleteAccount(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $user = $this->getUser();
 
-    // Vérifie si l'utilisateur existe
-    if (!$user instanceof User) {
-        $this->addFlash('error', 'Utilisateur non trouvé.');
+        // Vérifie si l'utilisateur existe
+        if (!$user instanceof User) {
+            $this->addFlash('error', 'Utilisateur non trouvé.');
+            return $this->redirectToRoute('app_home');
+        }
+
+        // Invalide la session pour déconnecter l'utilisateur
+        $request->getSession()->invalidate();
+
+        // Supprime le token de sécurité pour assurer la déconnexion
+        $this->container->get('security.token_storage')->setToken(null);
+
+        try {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Une erreur est survenue : ' . $e->getMessage());
+            return $this->redirectToRoute('app_account', [
+                'error' => 'Une erreur est survenue lors de la suppression de votre compte. Réessayez ultérieurement.'
+            ]);
+        }
+
+        $this->addFlash('success', 'Votre compte a bien été supprimé');
+
         return $this->redirectToRoute('app_home');
     }
 
-    // Invalide la session pour déconnecter l'utilisateur
-    $request->getSession()->invalidate();
+    #[Route('/account/api_access', name: 'api_access')]
+    public function toggleApiAccess(): RedirectResponse
+    {
+        $user = $this->security->getUser();
 
-    // Supprime le token de sécurité pour assurer la déconnexion
-    $this->container->get('security.token_storage')->setToken(null);
+        if (!$user instanceof User) {
+            throw $this->createAccessDeniedException();
+        }
 
-    // Supprime le compte utilisateur
-    try {
-        $entityManager->remove($user);
-        $entityManager->flush();
-    } catch (\Exception $e) {
-        // Ajoute un message d'erreur détaillé
-        $this->addFlash('error', 'Une erreur est survenue : ' . $e->getMessage());
-        return $this->redirectToRoute('app_account', [
-            'error' => 'Une erreur est survenue lors de la suppression de votre compte. Réessayez ultérieurement.'
-        ]);
+        // Toggle API access
+        $isApiAccessEnabled = !$user->isApiAccessEnabled();
+        $user->setApiAccessEnabled($isApiAccessEnabled);
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('app_account'); // Remplacez par la route vers votre page de compte
     }
-
-    // Ajoute un message flash de succès
-    $this->addFlash('success', 'Votre compte a bien été supprimé');
-
-    // Redirige vers la page d'accueil
-    return $this->redirectToRoute('app_home');
-}
-
-
-    
-    
     
 
 

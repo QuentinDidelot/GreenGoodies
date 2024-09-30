@@ -120,11 +120,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->isApiAccessEnabled;
     }
-
+    
     public function setApiAccessEnabled(bool $isApiAccessEnabled): static
     {
         $this->isApiAccessEnabled = $isApiAccessEnabled;
-
+    
         return $this;
     }
 
