@@ -111,6 +111,41 @@ h1 {
     background-color: var(--button-hover-color-one);
 }
 
+
+/* =================================================================
+                            Messages
+================================================================= */
+
+.flash-message {
+    background-color: #e6f7e6; 
+    border-left: 5px solid #7cc67c; 
+    color: #333; 
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.flash-message:before {
+    content: '✔'; 
+    font-size: 20px;
+    margin-right: 10px;
+    color: #7cc67c;
+}
+
+.flash-message.success {
+    background-color: #e6f7e6;
+    border-left-color: #7cc67c;
+}
+
+.flash-message.error {
+    background-color: #fbe6e6;
+    border-left-color: #c67c7c;
+}
+
 /* =================================================================
                             Navigation
 ================================================================= */

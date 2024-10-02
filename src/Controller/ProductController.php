@@ -115,7 +115,11 @@ public function showProductDetails(int $id, string $slug, SessionInterface $sess
         // MàJ du panier
         $session->set('cart', $cart);
 
-        $this->addFlash('success', sprintf('L\'article "%s" a bien été ajouté au panier.', $product->getName()));
+        $this->addFlash(
+            'success', 
+            sprintf('L\'article "%s" (x%d) a bien été ajouté au panier.', $product->getName(), $quantity)
+        );
+        
 
         // Redirection avec l'ID et le slug
         return $this->redirectToRoute('app_product_details', [
@@ -135,6 +139,8 @@ public function showProductDetails(int $id, string $slug, SessionInterface $sess
     public function clearCart(SessionInterface $session): Response {
 
         $session->remove('cart');
+
+        $this->addFlash("success", "Votre panier a bien été vidé !");
 
         return $this->redirectToRoute('app_home');
     }
