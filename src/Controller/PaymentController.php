@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
+use App\Entity\CustomerOrder;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -77,7 +77,14 @@ class PaymentController extends AbstractController
         if (!$order) {
             throw $this->createNotFoundException('Commande non trouvée.');
         }
-
+    
+        // Vérifie que le statut de la commande est "pending" avant de le mettre à jour
+        if ($order->getStatus() === 'en attente de paiement') {
+            $order->setStatus('payée'); 
+            $entityManager->flush(); 
+        }
+    
+        // Vider le panier et l'ID de commande
         $session->remove('cart');
         $session->remove('orderId');
     
@@ -85,5 +92,6 @@ class PaymentController extends AbstractController
             'message' => 'Votre paiement a été effectué avec succès !',
         ]);
     }
+    
     
 }

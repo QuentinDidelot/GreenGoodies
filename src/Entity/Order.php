@@ -22,6 +22,9 @@ class Order
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $orderDate = null;
 
+    #[ORM\Column]
+    private ?string $status = null;
+
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
@@ -59,6 +62,18 @@ class Order
     public function setOrderDate(\DateTimeInterface $orderDate): static
     {
         $this->orderDate = $orderDate;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

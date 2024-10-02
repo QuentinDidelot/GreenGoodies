@@ -25,10 +25,11 @@ class OrderController extends AbstractController
             return $this->redirectToRoute('app_cart');
         }
 
-        // Créer une nouvelle commande
+        // Créer une nouvelle commande avec le statut "en attente de paiement"
         $order = new Order();
         $order->setUser($user);
         $order->setOrderDate(new \DateTime());
+        $order->setStatus('en attente de paiement'); 
         $totalPrice = 0;
 
         foreach ($cart as $productId => $quantity) {
@@ -48,11 +49,12 @@ class OrderController extends AbstractController
 
         $order->setTotalPrice($totalPrice);
 
+        // Enregistrer la commande en attente
         $entityManager->persist($order);
         $entityManager->flush();
 
+        // Stocker l'ID de la commande dans la session pour utilisation ultérieure
         $session->set('orderId', $order->getId());
-
 
         return $this->render('payment/checkout.html.twig', [
             'products' => $productRepository->findBy(['id' => array_keys($cart)]),

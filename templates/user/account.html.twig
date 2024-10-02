@@ -8,29 +8,32 @@
 
         <div class="account-order">
             <h3 class="my-order">Mes commandes</h3>
-        {% if orders is empty %}
-            <p>Vous n'avez pas encore passé de commande.</p>
-        {% else %}
-            <table class="command-container">
-                <thead>
-                    <tr>
-                        <th>N°</th>
-                        <th>Date</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for order in orders %}
+            {% if orders is empty %}
+                <p>Vous n'avez pas encore passé de commande.</p>
+            {% else %}
+                <table class="command-container">
+                    <thead>
                         <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{ order.orderDate|date('d/m/Y') }}</td>
-                            <td>{{ order.totalPrice|number_format(2, ',', ' ') }} €</td>
+                            <th>N°</th>
+                            <th>Date</th>
+                            <th>Total</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% endif %}
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            {% if order.status == 'payée' %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ order.orderDate|date('d/m/Y') }}</td>
+                                    <td>{{ order.totalPrice|number_format(2, ',', ' ') }} €</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
+
 
         <div class="account-api-access">
             <h3 class="my-api-access">Mon accès API</h3>
