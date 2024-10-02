@@ -26,7 +26,7 @@ Le projet permet aux utilisateurs de s'inscrire, de se connecter, de parcourir l
 
 1. Télécharger le projet
 2. Modifier le fichier .env et renseigner vos informations de connexion à la base de données ainsi que vos clefs publique et secrète pour Stripe
-3. Installez les dépendances avec `composer install`
+3. Installer les dépendances avec `composer install`
 4. Créer la base de données avec `php bin/console doctrine:database:create`
 5. Appliquer les migrations avec `php bin/console doctirne:migrations:migrate`
 6. Insérer les fixtures avec `php bin/console doctrine:fixtures:load`
