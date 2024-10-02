@@ -46,7 +46,6 @@ class ApiProductController extends AbstractController
     public function getProductList(): JsonResponse
     {
         $user = $this->security->getUser();
-
         // Vérifier si l'utilisateur est authentifié et si l'accès API est activé
         if (!$user instanceof User || !$user->isApiAccessEnabled()) {
             return new JsonResponse(['message' => 'Accès API non activé'], Response::HTTP_FORBIDDEN);
