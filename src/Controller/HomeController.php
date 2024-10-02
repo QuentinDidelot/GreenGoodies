@@ -22,7 +22,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        // Récupération des produits en base de données
+
         $products = $this->productRepository->findAll();
     
         return $this->render('home.html.twig', [

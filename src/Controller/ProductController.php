@@ -71,6 +71,7 @@ public function showProductDetails(int $id, string $slug, SessionInterface $sess
     #[IsGranted('ROLE_USER')]
     #[Route('/cart', name: 'app_cart')]
     public function showCart(SessionInterface $session): Response {
+
         // Pour récupérer le panier de l'utilisateur
         $cart = $session->get('cart', []);
         
@@ -104,12 +105,10 @@ public function showProductDetails(int $id, string $slug, SessionInterface $sess
         // Pour récupérer la quantité depuis la requête
         $quantity = $request->request->get('quantity', 1);
 
-        // Vérifier la quantité du produit
         if ($quantity > 0) {
             // Si le produit est déjà dans le panier, mettre à jour la quantité
             $cart[$product->getId()] = $quantity;
         } else {
-            // Sinon, on retire le produit du panier
             unset($cart[$product->getId()]);
         }
 
@@ -135,7 +134,6 @@ public function showProductDetails(int $id, string $slug, SessionInterface $sess
     #[Route('/cart/clear', name: 'app_cart_clear')]
     public function clearCart(SessionInterface $session): Response {
 
-        // Vider le panier de l'utilisateur
         $session->remove('cart');
 
         return $this->redirectToRoute('app_home');

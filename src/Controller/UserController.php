@@ -151,7 +151,6 @@ class UserController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
-        // Toggle API access
         $isApiAccessEnabled = !$user->isApiAccessEnabled();
         $user->setApiAccessEnabled($isApiAccessEnabled);
 

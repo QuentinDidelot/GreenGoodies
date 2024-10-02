@@ -50,7 +50,7 @@ class PaymentController extends AbstractController
             $total += $product->getPrice() * $quantity;
         }
 
-        Stripe::setApiKey('sk_test_51LiGzfIKG6NL7lD76dkjsaykpkzl5VnRW5UzH3r9PppxLgOmOnw6RKAUELQDxtL1hD1usdDSwa3KQvdETq69uTDn0096MNLLri');
+        Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
 
         $checkoutSession = StripeSession::create([
             'payment_method_types' => ['card'],

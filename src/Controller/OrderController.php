@@ -51,11 +51,9 @@ class OrderController extends AbstractController
         $entityManager->persist($order);
         $entityManager->flush();
 
-        // Ajoutez cette ligne avant de rediriger vers la page de paiement
-$session->set('orderId', $order->getId());
+        $session->set('orderId', $order->getId());
 
 
-        // Afficher la page récapitulative avant de procéder au paiement
         return $this->render('payment/checkout.html.twig', [
             'products' => $productRepository->findBy(['id' => array_keys($cart)]),
             'cart' => $cart,
