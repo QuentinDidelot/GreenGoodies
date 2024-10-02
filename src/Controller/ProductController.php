@@ -99,10 +99,9 @@ public function showProductDetails(int $id, string $slug, SessionInterface $sess
     #[Route('/cart/add/{id}', name: 'app_cart_add')]
     public function addToCart(Product $product, SessionInterface $session, Request $request): Response
     {
-        // Pour récupérer le panier de l'utilisateur
+
         $cart = $session->get('cart', []);
 
-        // Pour récupérer la quantité depuis la requête
         $quantity = $request->request->get('quantity', 1);
 
         if ($quantity > 0) {

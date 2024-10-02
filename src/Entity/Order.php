@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
-#[ORM\Table(name: 'CustomerOrder')]
+#[ORM\Table(name: 'Customer_Order')]
 class Order
 {
     #[ORM\Id]

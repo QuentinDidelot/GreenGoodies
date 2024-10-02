@@ -43,7 +43,7 @@ security:
 
     access_control:
         - { path: ^/cart, roles: ROLE_USER }
-        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/login, roles: ROLE_USER }
         - { path: ^/api/doc, roles: PUBLIC_ACCESS }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 

@@ -49,11 +49,9 @@ class OrderController extends AbstractController
 
         $order->setTotalPrice($totalPrice);
 
-        // Enregistrer la commande en attente
         $entityManager->persist($order);
         $entityManager->flush();
 
-        // Stocker l'ID de la commande dans la session pour utilisation ultérieure
         $session->set('orderId', $order->getId());
 
         return $this->render('payment/checkout.html.twig', [

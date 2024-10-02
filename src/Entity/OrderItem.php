@@ -6,6 +6,7 @@ use App\Repository\OrderItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderItemRepository::class)]
+#[ORM\Table(name: 'order_item')]
 class OrderItem
 {
     #[ORM\Id]
@@ -24,8 +25,9 @@ class OrderItem
     private ?Product $product = null;
 
     #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'orderItems')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: 'order_id', referencedColumnName: 'id', nullable: false)]
     private ?Order $order = null;
+    
 
     public function getId(): ?int
     {
